@@ -16,7 +16,7 @@
         <u1 class="nav-links">
             <li><a href="./home">Home</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a onclick="logout()">Logout</a></li>
         </u1>
      <div class="burger">
          <div class="line1"></div>
@@ -27,6 +27,7 @@
     </nav>
     <div class="profile">
         <div class="profile__sidebar">
+            <!-- user intoduction part -->
             <div class="profile__welcome">
                 <div class="image"> 
                     <img alt="User Pic" 
@@ -53,16 +54,11 @@
                         </p>
                     </div>                
                 </p>
-
+         <!-- edit details button -->
                 <div class="detail__button">
                     <button type="submit" onclick="editdetails()">Edit</button>     
                 </div>
 
-                <!-- <form action="/edit" method="POST">
-                    <div class="detail__button">
-                        <button type="submit">Edit</button>     
-                    </div>
-                </form> -->
             </div>
 
          </div>
@@ -71,6 +67,7 @@
             <div class="post__welcome">
                 <h3>Your posts</h3>
               </div>  
+              <!-- upload a post section -->
               <div class="profile__details">
                 <h3>Upload a post</h3>
                 <form class="form" id="postupload">
@@ -136,14 +133,16 @@
                     </div>
                 </form>
             </div>
+            <!-- viewing users pervious posts -->
             <div class="post__details">
             <h3> Your previous posts</h3>
         </div>
-        <%if(posts.length==0){%>
+        <%if(posts.length==0){%> 
             <div class="post__design">
             <h3>You haven't still uploaded any posts</h3>
             </div>
        <% }%>
+       <!-- define varaible to keep track of number of posts displayed in the UI in blocks of 3in a row -->
             <%  i = 0%>
             <div class="post__list">
             <% while(i < posts.length){%>
@@ -166,11 +165,7 @@
                                 <div class="postedit__button">
                                 <button onclick="deletepost(this.value)" value="<%=posts[i].id%>">Delete</button>
                             </div>
-                                <!-- <form action="/edit_post?post=<%=posts[i].id%>" method="POST">
-                                    <div class="postedit__button">
-                                        <button type="submit">Edit</button>     
-                                    </div>
-                                </form> -->
+                            
                                 <div class="postedit__button">
                                     <button onclick="Editpost(this.value)" value="<%=posts[i].id%>">Edit</button>
                                 </div>
@@ -235,6 +230,7 @@
         </div>
               
         <script>
+            //edit button on the posts trigger this function
             async function Editpost(val){
                 const id= val;
                 const data={id};
@@ -256,6 +252,7 @@
                      window.location='/post_edit?'+params;
                  }
             }
+            //upload a post
             async function upload(){
                 console.log("wow");
                 const formData=new FormData();
@@ -293,9 +290,11 @@
                 }
                
         })
+        //edit user details
         async function editdetails(){
-            window.location.pathname = '/edit'
+            window.location.pathname = '/edit' //redirect to edit
         }
+        //delete a post
       async function deletepost(value){
           const id= value;
        const data={id};
@@ -317,6 +316,24 @@
                     window.location.pathname = '/profile'
                 }
       }
+//logout
+      async function logout(){
+            const id="1";
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/logout',option);
+                const data1=await responce.json();
+                if(data1.success=="logout successfull"){
+                    alert(data1.success);
+                    window.location.pathname='/'
+                }
+        }
         </script>
          
 

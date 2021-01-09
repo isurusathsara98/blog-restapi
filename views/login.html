@@ -32,7 +32,7 @@
             <h2>Login</h2>
 
            </div>
-       
+       <!-- login form -->
         <form class="form" id="myform">
             <div class="form__input">
  
@@ -54,15 +54,6 @@
                 
                 </div>
 
-
-                
-               <!-- <div class="input__label">
-                <label for="mob_no" class="col-md-3 control-label">Profile Image</label>
-                <div class="col-sm-9">
-                    <input type="file" class="uploaded_image" id="uploaded_image" name="uploaded_image" accept="" onchange="test()" required/>
-                </div> 
-               </div> -->
-
                 <br>
              </div>
              
@@ -72,42 +63,9 @@
                      
           
         </form>
-        <!-- <script type="text/javascript">
-           async function login(){
-                const email=document.getElementById('email').value;
-                const password=document.getElementById('password').value;
-                const data={email, password};
-                const option={
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                    body:JSON.stringify(data),
-                };
-                const responce=await fetch('/auth/login',option);
-                const data1=await responce.json();
-                console.log(data1.success);
-                if(data1.success=="Sucessfully logged in"){
-                    window.location.pathname = '/home'
-                }
-                else{
-                    console.log("here");
-                    alert("Username or Passowrd is incorrect");
-                    window.location.pathname = '/login'
-                }
-                var x=1;
-                while(x<2000)
-                {
-                    console.log("sdf");
-                    x=x+1;
-                }
-                
-            
-               
-              
-            }
-        </script> -->
+        
     <script>
+        //login form submit
         const myform=document.getElementById('myform');
         myform.addEventListener('submit',async e=>{
                 e.preventDefault();
@@ -136,46 +94,7 @@
         
         });
   </script>
-     <script>
-//             async function test(){
-//                 console.log("wow");
-//                 const formData=new FormData();
-
-// const email=document.getElementById('email').value;
-// const password=document.getElementById('password').value;
-// const uploaded_image = document.getElementById('uploaded_image').files[0]; 
-// formData.append("uploaded_image",uploaded_image);
-// formData.append("email",document.getElementById('email').value);
-// formData.append("password",password)
-//  const option={
-//     method:'POST',
-//     body:formData,
-// };
-// const responce=await fetch('/imageupload',option);
-//             }
-//             const myform=document.getElementById('myform');
-           
-
-//             myform.addEventListener('submit',async e=>{
-//                 e.preventDefault();
-             
-//                 const formData=new FormData();
-
-//                 const email=document.getElementById('email').value;
-//                 const password=document.getElementById('password').value;
-//                 const uploaded_image = document.getElementById('uploaded_image').files[0]; 
-//                 formData.append("uploaded_image",uploaded_image);
-//                 formData.append("email",document.getElementById('email').value);
-//                 formData.append("password",password)
-//                  const option={
-//                     method:'POST',
-//                     body:formData,
-//                 };
-//                 const responce=await fetch('/auth/login',option);
-//                 const data1=await responce.json();
-//                 console.log(data1.success);
-//             })
-//         </script> 
+ 
        </div>
       
    </div>

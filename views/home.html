@@ -31,6 +31,7 @@
     <div class="home__details">
         <h3> Welcome to view popular blogs </h3>
     </div>
+    <!-- search bar -->
     <div class="home__search">
         <form class="form" id="search">
             <div class="form__input">
@@ -62,6 +63,7 @@
 
         </form>
     </div>
+    <!-- post displayed -->
     <%  i = 0%>
     <div class="post__list">
         <%if(posts.length==0){%>
@@ -84,13 +86,13 @@
                      
                           <% } %>
                          
-                         
+                         <!-- each post has view and like buttons -->
                           <div class="cube__buttons">
                     
                             <div class="postedit__button">
                             <button onclick="viewpost(this.value)" value="<%=posts[i].id%>">View</button>
                         </div>
-                           
+                           <!-- checking if user has previously like the post to toggle to like button to unlike-->
                             <% r=0%>
                             <% check=0%>
                             <% while(r< like.length){%>
@@ -206,6 +208,7 @@
     <%}%>
 
     <script>
+        //search function
          const search=document.getElementById('search');
         search.addEventListener('submit',async e=>{
                 e.preventDefault();
@@ -232,6 +235,7 @@
             const id=val;
             window.location='/postview?post='+id;
         }
+        //like and unlike a post functions
         async function likepost(val){
             const id=val;
             const data={id};

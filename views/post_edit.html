@@ -12,7 +12,7 @@
         <u1 class="nav-links">
             <li><a href="/home">Home</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a onclick="logout()">Logout</a></li>
         </u1>
      <div class="burger">
          <div class="line1"></div>
@@ -21,15 +21,16 @@
          
      </div>
     </nav>
-
+<!-- edit a post belong to the logged in user -->
    <div class="register__form">
        <h1><u>Edit post <%=qs.Title%></u></h1>
       <p>Only edit the fields you want to edit and leave others as blank</p>
+      <!-- previous blog data is show to user so if he or she wants to use those data, the can be retrived easily -->
       <form class="form" id="postedit">
         <p>Published on 
             <%=qs.Published%></p>
     <%    if(qs.updatedAt){%>
-      <p>Recently updated on <%=qs.updatedAt%></p>
+      <p>Recently updated on <%=qs.updatedAt%></p>  
       <%}%>
       <input type="hidden" value="<%=qs.id%>" id="postid"/>
            <div class="form__input">
@@ -37,15 +38,15 @@
                 <img alt="post Pic" 
                 src="/<%=qs.image%>" class="img-circle img-responsive"> 
             </div>
-
-            <div class="post__label">
+<!-- edit image of the blog -->
+            <div class="post__label"> 
                 <label for="mob_no" class="col-md-3 control-label">Post to Upload</label>
                 <div class="col-sm-9">
                     <input type="file" id="uploaded_image" class="uploaded_image" name="uploaded_image" accept="" onchange="upload()" />
                 </div> 
                </div>
 
-
+<!-- edit title of the blog -->
                <div class="form__input">
                 <div class="post__label">
             <label for="title">Title : </label>
@@ -53,6 +54,7 @@
                /> 
                </div></div>
                <div class="form__input">
+                   <!-- edit content -->
                 <div class="post__label">
                 <label for="content">Current Content : </label>
     
@@ -70,7 +72,7 @@
                    required> </textarea>
                 </div>
             </div>
-                 
+                 <!-- edit category -->
             <div class="form__input">
                 <div class="post__label">
                 <label for="content">Select most suitable category</label>
@@ -93,6 +95,7 @@
                 </select>
                    </div>
                </div>
+               <!-- edit summary -->
             <div class="form__input">
                 <div class="post__label">
                 <label for="content">Current Summary : </label>
@@ -158,6 +161,23 @@
                 }
                 
         })
+        async function logout(){
+            const id="1";
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/logout',option);
+                const data1=await responce.json();
+                if(data1.success=="logout successfull"){
+                    alert(data1.success);
+                    window.location.pathname='/'
+                }
+        }
      </script>
       
    </div>

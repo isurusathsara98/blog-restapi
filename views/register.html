@@ -33,6 +33,7 @@
 
        </div>
        <section>
+            <!-- register form   -->
         <form class="form" id="myform">
            <div class="form__input">
             <div class="input__label">
@@ -119,6 +120,7 @@
     </section>
 
     <script>
+        //upload function to upload the profile image to the public folder
          async function upload(){
                 console.log("wow");
                 const formData=new FormData();
@@ -130,6 +132,8 @@
                  };
                  const responce=await fetch('/imageupload',option);
             }
+
+            //form submit 
          const myform=document.getElementById('myform');
         myform.addEventListener('submit',async e=>{
                 e.preventDefault();
@@ -149,10 +153,11 @@
                         'Content-Type':'application/json'
                     },
                     body:JSON.stringify(data),
-                };
-                const responce=await fetch('/auth/register',option);
+                };//fetch api options
+                const responce=await fetch('/auth/register',option); //retrieve the responce
                 const data1=await responce.json();
                 console.log(data1.success)
+                //check the responce json 
                 if(data1.success=="You have successfully registered. Please login to your account"){
                     alert("You have successfully registered. Please login to your account");
                     window.location.pathname = '/login'

@@ -15,7 +15,7 @@
         <u1 class="nav-links">
             <li><a href="/home">Home</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
+            <li><a onclick="logout()">Logout</a></li>
         </u1>
      <div class="burger">
          <div class="line1"></div>
@@ -27,7 +27,7 @@
     <div class="home__details">
         <h3> Viewing blog post of <%=author.firstname%> <%=author.lastname%></h3>
     </div>
-    
+    <!-- this page displays the blod post with the content for other bloggers to read -->
 <div class="post__view">
     <div class="view__image">
         <div class="form__input">
@@ -37,6 +37,7 @@
             </div>
 
     </div>
+    <!-- display comments on the blog. current user comments and other user comments are sorted -->
     <%if(comment.length>0){%>
     <p><b><u>Comments about the Blog</u></b></p>
    <% }else{%>
@@ -57,12 +58,7 @@
              <p align="center"><%=comment[i].content%></p>
         
 
-        <!-- <form action="/auth/deletecomment?post=<%=qs.id%>&publish=<%=comment[i].id%>" method="POST">
-            <div class="postedit__button">
-                <button type="submit">Delete</button>     
-            </div>
-        </form> -->
-
+<!-- users can delete their own comments -->
         <div class="postedit__button">
             <button onclick="deletecomment(this.value)" value="<%=comment[i].id%>">Delete</button>
         </div>
@@ -71,6 +67,7 @@
     <%i=i+1%>
     <%}%>
     </div>
+    <!-- the detials about the blog -->
     <div class="view__content">
         <p style="color:rebeccapurple"><%=count.length%> Likes </p>
           <p><b>Author of the blog : <%=author.firstname%> <%=author.lastname%></b></p>
@@ -79,7 +76,7 @@
            <p><b>Title  :  <%=qs.Title%></b></p><br>
            <p><b><u>summary</u> </b>  </p><p><%=qs.Sumary%></p>
           <br> <p><b><u>Content</u></b> </p><p> <%=qs.content%></p>
-      
+      <!-- comment section -->
           <form class="form" id="commenton">
             <div class="form__input">
                 <div class="post__label">
@@ -165,6 +162,23 @@
                                 alert(data1.success);
                             }
                     })
+                    async function logout(){
+            const id="1";
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/logout',option);
+                const data1=await responce.json();
+                if(data1.success=="logout successfull"){
+                    alert(data1.success);
+                    window.location.pathname='/'
+                }
+        }
            </script>
         </div>
 </div>

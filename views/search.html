@@ -19,7 +19,7 @@
         <u1 class="nav-links">
             <li><a href="./home">Home</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a onclick="logout()">Logout</a></li>
         </u1>
      <div class="burger">
          <div class="line1"></div>
@@ -271,6 +271,23 @@
                     alert(data1.success);
                 }
 
+        }
+        async function logout(){
+            const id="1";
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/logout',option);
+                const data1=await responce.json();
+                if(data1.success=="logout successfull"){
+                    alert(data1.success);
+                    window.location.pathname='/'
+                }
         }
     </script>
 </div>
