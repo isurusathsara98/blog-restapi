@@ -257,9 +257,9 @@ app.post('/auth/login',function async(req,res){
     }
 })
 
-app.get('/logout',function(req,res){
+app.post('/logout',function(req,res){
     res.cookie('jwt','',{maxAge:1});
-    res.redirect('/');
+   return res.json({success:"logout successfull"});
 })
 app.get('/edit', requireAuth ,(req,res)=>{
     res.render('edit',{message:"Leave any detail as it is if changes are not required"});
