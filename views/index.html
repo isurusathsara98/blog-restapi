@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="css/navbar-style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index-style.css">
+    <title>Blog</title>
+</head>
+<body>
+   <nav> 
+       <h1>Blog</h1>
+       <u1 class="nav-links">
+           <li><a href="">Home</a></li>
+           <li><a href="/login">Login</a></li>
+           <li><a href="/register">Register</a></li>
+       </u1>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+        
+    </div>
+   </nav>
+
+   <div class="home_welcome">
+       <h3>Welcome to the Blog</h3>
+       <div class="welcome_text">
+       <p> Login to view the blog and like and comment on your 
+           favourite content. Post your thoughts and captured
+            moments on the blog for others to enjoy. 
+            Join the community and lets have fun together</p>
+        </div>
+
+        </div>
+        <%i=0%>
+        <% while(i < posts.length){%>
+        
+            <div class="post__design">
+                <% if(i < posts.length){%>
+                    <div class="post__cubes">
+                        <p><u> <%=posts[i].Title%></u></p> 
+                          <p><%=posts[i].Sumary%></p>
+                          <% if(posts[i].image){%>
+                          <div class="post__img"> 
+                              <img alt="post Pic" 
+                              src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                          </div>
+                     
+                          <% } %>
+                         
+                         
+                          
+                          
+                      </div>
+            <%}%>
+                <% i = i + 1%>
+                <% if(i < posts.length){%>
+                    <div class="post__cubes">
+                        <p><u> <%=posts[i].Title%></u></p> 
+                          <p><%=posts[i].Sumary%></p>
+                          <% if(posts[i].image){%>
+                          <div class="post__img"> 
+                              <img alt="post Pic" 
+                              src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                          </div>
+                
+                          <% } %>
+                          
+                          
+                          
+                      </div>
+                <%}%>
+                              <% i = i + 1%>
+                              <% if(i < posts.length){%>
+                                <div class="post__cubes">
+                                    <p><u> <%=posts[i].Title%></u></p> 
+                                      <p><%=posts[i].Sumary%></p>
+                                      <% if(posts[i].image){%>
+                                      <div class="post__img"> 
+                                          <img alt="post Pic" 
+                                          src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                                      </div>
+                                  
+                                      <% } %>
+
+                                     
+                                      
+                                  </div>
+                            <%}%>
+                                          <% i = i + 1%>
+                                        </div>
+
+
+    <%}%>
+
+
+
+
+        <script>
+            const navSlide=()=>{
+                const burger=document.querySelector('.burger');
+                const nav= document.querySelector('.nav-links');
+                const navLinks=document.querySelectorAll('.nav-links li')
+                burger.addEventListener('click',()=>{
+                    nav.classList.toggle('nav-active');
+                    navLinks.forEach((link,index)=>{
+                    if(link.style.animation){
+                        link.style.animation='';
+                    }
+                    else{
+                        link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+                    }
+                })
+                })
+                
+            }
+            navSlide();
+        </script>
+</body>
+</html>

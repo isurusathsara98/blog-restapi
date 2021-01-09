@@ -1,0 +1,37 @@
+.loginform-container {
+  margin: auto;
+  width: 80%;
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  background-image: url("https://images.wallpaperscraft.com/image/light_background_texture_69531_3840x2160.jpg");
+}
+
+
+.login_title {
+    text-align: center;
+}
+.input_cover>input{
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.input_cover{
+    border: 3px solid rgb(4, 4, 119);
+    border-radius: 6px;
+}
+.form__button{
+    text-align: center;
+}
+.form__button>button{
+    border: none;
+    outline: none;
+    background-color: rgb(165, 87, 216);
+    color: white;
+    width: 60%;
+    border-radius: 6px;
+}
+.form__button>button:hover{
+    background-color: rgb(111, 49, 153);
+
+}

@@ -1,0 +1,11 @@
+@media screen and (max-width:768px){
+    .post__img>img{
+        width: 100%;
+    }
+    .post__design{
+        display: grid;
+    }
+    .post__cubes{
+        max-width: 80%;
+    }
+}

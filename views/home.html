@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="css/navbar-style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home-style.css">
+    <title>Blog Home</title>
+    
+</head>
+   
+
+ <body>
+    
+    <nav> 
+        <h1>Blog</h1>
+        <u1 class="nav-links">
+            <li><a href="./home">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </u1>
+     <div class="burger">
+         <div class="line1"></div>
+         <div class="line2"></div>
+         <div class="line3"></div>
+         
+     </div>
+    </nav>
+    <div class="home__details">
+        <h3> Welcome to view popular blogs </h3>
+    </div>
+    <div class="home__search">
+        <form class="form" id="search">
+            <div class="form__input">
+                <div class="post__label">
+                <label for="content">Your favourite categories</label>
+                <select class="selectpicker" data-style="btn-info" id="category" name="category">
+                    <optgroup label="Select Table">
+                        <option value="select">Select category</option>
+                         <option value="product">Product post</option>
+                         <option value="Romantic">Romantic post</option>
+                         <option value="Scenic">Nature and scenic beauty</option>
+                         <option value="News">News/Trending</option>
+                         <option value="Sports">Sports</option>
+                         <option value="Humour">Humour</option>
+                         <option value="Movies">Movies/Music</option>
+                         <option value="Photograpy">Photography</option>
+                         <option value="Quotes">Quotes/Memes</option>
+                         <option value="Photograpy">Photography</option>
+                         <option value="Advertise">Advertising post</option>
+                         <option value="Other">Other</option>
+                    </optgroup>
+                </select>
+                   </div>
+               </div>
+                 
+               <div class="search__button">
+                <button type="submit">Search</button>     
+            </div>
+
+        </form>
+    </div>
+    <%  i = 0%>
+    <div class="post__list">
+        <%if(posts.length==0){%>
+            <div class="post__design">
+            <h3>No posts available</h3>
+            </div>
+       <% }%>
+    <% while(i < posts.length){%>
+        
+            <div class="post__design">
+                <% if(i < posts.length){%>
+                    <div class="post__cubes">
+                        <p><u> <%=posts[i].Title%></u></p> 
+                          <p><%=posts[i].Sumary%></p>
+                          <% if(posts[i].image){%>
+                          <div class="post__img"> 
+                              <img alt="post Pic" 
+                              src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                          </div>
+                     
+                          <% } %>
+                         
+                         
+                          <div class="cube__buttons">
+                    
+                            <div class="postedit__button">
+                            <button onclick="viewpost(this.value)" value="<%=posts[i].id%>">View</button>
+                        </div>
+                           
+                            <% r=0%>
+                            <% check=0%>
+                            <% while(r< like.length){%>
+                                
+                               <% if(like[r].postID==posts[i].id){%>
+                                <%check=1%>
+                               <% }%>
+                               <%r=r+1%>
+                           <%}%>
+                           <%if(check==0){%>
+                            
+                          <div class="postedit__button">
+                            <button onclick="likepost(this.value)" value="<%=posts[i].id%>">Like</button>
+                        </div>
+                        <%}else{%>
+                        
+                            <div class="postedit__button">
+                                <button onclick="unlikepost(this.value)" value="<%=posts[i].id%>">Unlike</button>
+                            </div>
+                            <%}%>
+                       
+                      </div>
+                          
+                      </div>
+            <%}%>
+                <% i = i + 1%>
+                <% if(i < posts.length){%>
+                    <div class="post__cubes">
+                        <p><u> <%=posts[i].Title%></u></p> 
+                          <p><%=posts[i].Sumary%></p>
+                          <% if(posts[i].image){%>
+                          <div class="post__img"> 
+                              <img alt="post Pic" 
+                              src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                          </div>
+                
+                          <% } %>
+                          
+                          <div class="cube__buttons">
+                            <div class="postedit__button">
+                                <button onclick="viewpost(this.value)" value="<%=posts[i].id%>">View</button>
+                            </div>
+                            
+
+                            <% r=0%>
+                            <% check=0%>
+                            <% while(r< like.length){%>
+                                
+                               <% if(like[r].postID==posts[i].id){%>
+                                <%check=1%>
+                               <% }%>
+                               <%r=r+1%>
+                           <%}%>
+                           <%if(check==0){%>
+                            <div class="postedit__button">
+                                <button onclick="likepost(this.value)" value="<%=posts[i].id%>">Like</button>
+                            </div>
+                        <%}else{%>
+                            <div class="postedit__button">
+                                <button onclick="unlikepost(this.value)" value="<%=posts[i].id%>">Unlike</button>
+                            </div>
+                            <%}%>
+                        </div>
+                          
+                      </div>
+                <%}%>
+                              <% i = i + 1%>
+                              <% if(i < posts.length){%>
+                                <div class="post__cubes">
+                                    <p><u> <%=posts[i].Title%></u></p> 
+                                      <p><%=posts[i].Sumary%></p>
+                                      <% if(posts[i].image){%>
+                                      <div class="post__img"> 
+                                          <img alt="post Pic" 
+                                          src="/<%=posts[i].image%>" class="img-circle img-responsive"> 
+                                      </div>
+                                  
+                                      <% } %>
+
+                                      <div class="cube__buttons">
+
+                                        <div class="postedit__button">
+                                            <button onclick="viewpost(this.value)" value="<%=posts[i].id%>">View</button>
+                                        </div>
+
+
+                                        <% r=0%>
+                            <% check=0%>
+                            <% while(r< like.length){%>
+                               
+                               <% if(like[r].postID==posts[i].id){%>
+                                <%check=1%>
+                               <% }%>
+                               <%r=r+1%>
+                           <%}%>
+                           <%if(check==0){%>
+                            <div class="postedit__button">
+                                <button onclick="likepost(this.value)" value="<%=posts[i].id%>">Like</button>
+                            </div>
+                        <%}else{%>
+                            <div class="postedit__button">
+                                <button onclick="unlikepost(this.value)" value="<%=posts[i].id%>">Unlike</button>
+                            </div>
+                            <%}%>
+                                    </div>
+                                      
+                                  </div>
+                            <%}%>
+                                          <% i = i + 1%>
+                                        </div>
+
+
+    <%}%>
+
+    <script>
+         const search=document.getElementById('search');
+        search.addEventListener('submit',async e=>{
+                e.preventDefault();
+                const category=document.getElementById("category").value;
+                const data={category};
+                const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/search',option);
+                const data1=await responce.json();
+                if(data1.success=="search"){
+                    window.location='/search?category='+category;
+                }
+                else{
+                    alert(data1.success);
+                }
+
+        })
+        async function viewpost(val){
+            const id=val;
+            window.location='/postview?post='+id;
+        }
+        async function likepost(val){
+            const id=val;
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/auth/like',option);
+                const data1=await responce.json();
+                if(data1.success=="You liked the post"){
+                    window.location.pathname='/home'
+                }
+                else{
+                    alert(data1.success);
+                }
+
+        }
+        async function unlikepost(val){
+            const id=val;
+            const data={id};
+            const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/auth/unlike',option);
+                const data1=await responce.json();
+                if(data1.success=="You unliked the post"){
+                    window.location.pathname='/home'
+                }
+                else{
+                    alert(data1.success);
+                }
+
+        }
+    </script>
+</div>
+
+   <script>
+    const navSlide=()=>{
+        const burger=document.querySelector('.burger');
+        const nav= document.querySelector('.nav-links');
+        const navLinks=document.querySelectorAll('.nav-links li')
+        burger.addEventListener('click',()=>{
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link,index)=>{
+            if(link.style.animation){
+                link.style.animation='';
+            }
+            else{
+                link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+            }
+        })
+        })
+        
+    }
+    navSlide();
+</script>
+</body>
+</html>

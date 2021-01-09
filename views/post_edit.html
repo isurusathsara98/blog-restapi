@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Blog post</title>
+</head>
+<body>
+    <nav> 
+        <h3>Blog</h3>
+        <u1 class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </u1>
+     <div class="burger">
+         <div class="line1"></div>
+         <div class="line2"></div>
+         <div class="line3"></div>
+         
+     </div>
+    </nav>
+
+   <div class="register__form">
+       <h1><u>Edit post <%=qs.Title%></u></h1>
+      <p>Only edit the fields you want to edit and leave others as blank</p>
+      <form class="form" id="postedit">
+        <p>Published on 
+            <%=qs.Published%></p>
+    <%    if(qs.updatedAt){%>
+      <p>Recently updated on <%=qs.updatedAt%></p>
+      <%}%>
+      <input type="hidden" value="<%=qs.id%>" id="postid"/>
+           <div class="form__input">
+            <div class="postedit__img"> 
+                <img alt="post Pic" 
+                src="/<%=qs.image%>" class="img-circle img-responsive"> 
+            </div>
+
+            <div class="post__label">
+                <label for="mob_no" class="col-md-3 control-label">Post to Upload</label>
+                <div class="col-sm-9">
+                    <input type="file" id="uploaded_image" class="uploaded_image" name="uploaded_image" accept="" onchange="upload()" />
+                </div> 
+               </div>
+
+
+               <div class="form__input">
+                <div class="post__label">
+            <label for="title">Title : </label>
+               <input type="text" id="title" name="title" placeholder="<%=qs.Title%>"
+               /> 
+               </div></div>
+               <div class="form__input">
+                <div class="post__label">
+                <label for="content">Current Content : </label>
+    
+                <label for="content"><%=qs.content%></label>
+                </div>
+            </div>
+               <div class="form__input">
+                <div class="post__label">
+                <label for="content">Edit Content : </label>
+            </div>
+        </div>
+        <div class="form__input">
+            <div class="post__labelcontent">
+                   <textarea type="text" id="content" name="content" placeholder="<%=qs.content%>"
+                   required> </textarea>
+                </div>
+            </div>
+                 
+            <div class="form__input">
+                <div class="post__label">
+                <label for="content">Select most suitable category</label>
+                <select class="selectpicker" data-style="btn-info" id="category" name="category">
+                    <optgroup label="Select Table">
+                        <option value="<%=qs.category%>"><%=qs.category%></option>
+                         <option value="product">Product post</option>
+                         <option value="Romantic">Romantic post</option>
+                         <option value="Scenic">Nature and scenic beauty</option>
+                         <option value="News">News/Trending</option>
+                         <option value="Sports">Sports</option>
+                         <option value="Humour">Humour</option>
+                         <option value="Movies">Movies/Music</option>
+                         <option value="Photograpy">Photography</option>
+                         <option value="Quotes">Quotes/Memes</option>
+                         <option value="Photograpy">Photography</option>
+                         <option value="Advertise">Advertising post</option>
+                         <option value="Other">Other</option>
+                    </optgroup>
+                </select>
+                   </div>
+               </div>
+            <div class="form__input">
+                <div class="post__label">
+                <label for="content">Current Summary : </label>
+    
+                <label for="content"><%=qs.Sumary%></label>
+                </div>
+            </div>
+
+               <div class="form__input">
+                <div class="post__label">
+                <label for="content">Edit Summary for viewers</label>
+            </div>
+        </div>
+        <div class="form__input">
+            <div class="post__label">
+                   <textarea class="content__field" type="text" id="summary" value="cat" name="summary" placeholder="<%=qs.Sumary%>"
+                   required> </textarea>
+                </div>
+            </div>
+                
+            </div>
+            
+            <div class="edit__button">
+                <button type="submit">Edit</button>     
+            </div>
+                    
+         
+       </form>
+     <script>
+         async function upload(){
+                console.log("wow");
+                const formData=new FormData();
+                const uploaded_image = document.getElementById('uploaded_image').files[0]; 
+                formData.append("uploaded_image",uploaded_image);
+                 const option={
+                      method:'POST',
+                      body:formData,
+                 };
+                 const responce=await fetch('/imageupload',option);
+            }
+           const postedit=document.getElementById('postedit');
+        postedit.addEventListener('submit',async e=>{
+                e.preventDefault();
+                const id=document.getElementById('postid').value;
+                const title=document.getElementById('title').value;
+                const content=document.getElementById('content').value;
+                const category=document.getElementById('category').value;
+                var uploaded_image=document.getElementById('uploaded_image').value;
+                const summary=document.getElementById('summary').value;
+                const data={id,title, content, category, uploaded_image, summary};
+                console.log(data);
+                const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/auth/editpost',option);
+                const data1=await responce.json();
+                if(data1.success=="Succesfully edited"){
+                    window.location.pathname = '/profile'
+                }
+                
+        })
+     </script>
+      
+   </div>
+
+   <script>
+    const navSlide=()=>{
+        const burger=document.querySelector('.burger');
+        const nav= document.querySelector('.nav-links');
+        const navLinks=document.querySelectorAll('.nav-links li')
+        burger.addEventListener('click',()=>{
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link,index)=>{
+            if(link.style.animation){
+                link.style.animation='';
+            }
+            else{
+                link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+            }
+        })
+        })
+        
+    }
+    navSlide();
+</script>
+</body>
+</html>

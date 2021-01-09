@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="css/navbar-style.css">
+    <link rel="stylesheet" href="css/register-style.css">
+    <title>Blog register</title>
+</head>
+<body>
+    <nav> 
+        <h1>Blog</h1>
+        <u1 class="nav-links">
+            <li><a href="../">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        </u1>
+     <div class="burger">
+         <div class="line1"></div>
+         <div class="line2"></div>
+         <div class="line3"></div>
+         
+     </div>
+    </nav>
+
+   <div class="registerform-container">
+       <div class="right">
+ <div class="register_title">
+        <h2>Register</h2>
+        
+
+       </div>
+       <section>
+        <form class="form" id="myform">
+           <div class="form__input">
+            <div class="input__label">
+            <label for="firstname">First name</label><br>
+            <div class="input_cover">
+                <input type="text" id="fname" class="fname" name="fname" placeholder="First name"
+                required/> 
+            </div>   
+            
+               </div>
+               
+               <div class="input__label">
+               <label for="Middle name">Middle name</label><br>
+               <div class="input_cover">
+                <input type="text" id="mname" class="mname" name="mname" placeholder="Middle name"
+                required/>
+               </div>
+                
+               </div>
+
+               <div class="input__label">
+               <label for="Last name">Last name</label><br>
+               <div class="input_cover">
+                <input type="text" id="lname" class="lname" name="lname" placeholder="Last name"
+                required/>
+               </div>
+                
+               </div>
+
+               <div class="input__label">
+               <label for="Email">Email address</label><br>
+               <div class="input_cover">
+                <input type="email" id="email" class="email" name="email" placeholder="Email address"
+                required/> 
+               </div>
+               
+               </div>
+
+               <div class="input__label">
+               <label for="password">Password</label><br>
+              <div class="input_cover">
+                <input type="password" id="password" class="password" name="password" placeholder="Password"
+                required/>
+              </div>
+                
+               </div>
+               <div class="input__label">
+                <label for="password">Retype Password</label><br>
+                <div class="input_cover">
+                    <input type="password" id="passwordconfirm" class="passwordconfirm" name="passwordconfirm" placeholder="Password"
+                    required/> 
+                </div>
+                
+                </div>
+
+               <div class="input__label">
+               <label for="mobile">Mobile</label>
+               <div class="input_cover">
+                  <input type="integer" id="mobile" class="mobile" name="mobile" placeholder="Mobile number" required/> 
+               </div>
+            </div>
+
+            <div class="input__label">
+                <label for="Intro">Intro</label>
+                <div class="input_cover">
+                  <textarea type="text" id="intro" class="intro" name="intro" placeholder="Mobile number" required> </textarea>
+                </div>
+             </div>
+
+               <div class="input__label">
+                <label for="mob_no" class="col-md-3 control-label">Profile Image</label>
+                <div class="col-sm-9">
+                    <input type="file" id="uploaded_image" class="uploaded_image" name="uploaded_image" accept="" onchange="upload()" required/>
+                </div> 
+               </div>
+               <br>
+            </div>
+            <div class="form__button">
+                <button type="submit">Register</button>     
+            </div>
+                    
+         
+       </form>
+    </section>
+
+    <script>
+         async function upload(){
+                console.log("wow");
+                const formData=new FormData();
+                const uploaded_image = document.getElementById('uploaded_image').files[0]; 
+                formData.append("uploaded_image",uploaded_image);
+                 const option={
+                      method:'POST',
+                      body:formData,
+                 };
+                 const responce=await fetch('/imageupload',option);
+            }
+         const myform=document.getElementById('myform');
+        myform.addEventListener('submit',async e=>{
+                e.preventDefault();
+                const fname=document.getElementById('fname').value;
+                const mname=document.getElementById('mname').value;
+                const lname=document.getElementById('lname').value;
+                const email=document.getElementById('email').value;
+                const password=document.getElementById('password').value;
+                const passwordconfirm=document.getElementById('passwordconfirm').value;
+                const mobile=document.getElementById('mobile').value;
+                const intro=document.getElementById('intro').value;
+
+                const data={fname,mname,lname,email, password,passwordconfirm,mobile,intro};
+                const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/auth/register',option);
+                const data1=await responce.json();
+                console.log(data1.success)
+                if(data1.success=="You have successfully registered. Please login to your account"){
+                    alert("You have successfully registered. Please login to your account");
+                    window.location.pathname = '/login'
+                }
+                else
+                {
+                    alert(data1.success);
+                    window.location.pathname = '/register'
+                }
+        });
+    </script>
+       </div>
+      
+   </div>
+
+
+   <script>
+    const navSlide=()=>{
+        const burger=document.querySelector('.burger');
+        const nav= document.querySelector('.nav-links');
+        const navLinks=document.querySelectorAll('.nav-links li')
+        burger.addEventListener('click',()=>{
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link,index)=>{
+            if(link.style.animation){
+                link.style.animation='';
+            }
+            else{
+                link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+            }
+        })
+        })
+        
+    }
+    navSlide();
+</script>
+</body>
+</html>

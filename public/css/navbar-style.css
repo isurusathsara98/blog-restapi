@@ -1,0 +1,52 @@
+.burger{
+    display: none;
+    cursor: pointer;
+}
+.burger div{
+    width: 3vh;
+    height: .5vh;
+    background-color: black;
+    margin: 5px;
+}
+
+
+@media screen and (max-width:768px){
+    body{
+        overflow-x: hidden;
+    }
+    .nav-links{
+        position: absolute;
+        right: 0px;
+        height: 50vh;
+        width: 30vh;
+        top:9vh;
+        background-color:#caf0f8 ;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 3vh;
+        transform: translateX(110%);
+        transition:transform 0.5s ease-in ;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .burger{
+        display: block;
+    }
+    .nav-active{
+        transform: translateX(0%);
+    }
+
+}
+@keyframes navLinkFade{
+    from{
+opacity: 0;
+transform: translatex(50px);
+    }
+    to{
+opacity: 1;
+transform: translatex(0px);
+
+    }
+}

@@ -1,0 +1,20 @@
+@media screen and (max-width: 768px) {
+  .post__design {
+    display: grid;
+  }
+  .post__cubes {
+      width: 100%;
+      margin: 1% 1% 1% 1%;
+   max-width: 80%;
+  }
+  .home_welcome{
+      margin:1vh 1vw 2vh 1vw;
+  }
+  .welcome_text{
+      margin-bottom: 0vh;
+  }
+  .post__img>img{
+      width: 100%;
+  }
+
+}

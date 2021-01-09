@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="/css/navbar-style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/postview-style.css">
+    <title>Blog views</title>
+</head>
+<body>
+    <nav> 
+        <h1>Blog</h1>
+        <u1 class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
+        </u1>
+     <div class="burger">
+         <div class="line1"></div>
+         <div class="line2"></div>
+         <div class="line3"></div>
+         
+     </div>
+    </nav>
+    <div class="home__details">
+        <h3> Viewing blog post of <%=author.firstname%> <%=author.lastname%></h3>
+    </div>
+    
+<div class="post__view">
+    <div class="view__image">
+        <div class="form__input">
+            <div class="postedit__img"> 
+                <img alt="post Pic" 
+                src="/<%=qs.image%>" class="img-circle img-responsive"> 
+            </div>
+
+    </div>
+    <%if(comment.length>0){%>
+    <p><b><u>Comments about the Blog</u></b></p>
+   <% }else{%>
+    <p><b>No comments yet. Be the first to comment</b></p>
+   <%}%>
+<% i=0%>
+<% while(i< comment.length){%>
+    <%if(comment[i].userID!=user.id){%>
+<div class="comment__cube">
+    <p><b><%=comment[i].title%></b> published this comment on <%=comment[i].publishedAt%></p>
+     <p align="center"><u>Comment</u> </p>
+     <p align="center"><%=comment[i].content%></p>
+</div>
+    <%}else{%>
+        <div class="comment__cube">
+            <p><b>Your comment</b> published  on <%=comment[i].publishedAt%></p>
+             <p align="center"><u>Comment</u> </p>
+             <p align="center"><%=comment[i].content%></p>
+        
+
+        <!-- <form action="/auth/deletecomment?post=<%=qs.id%>&publish=<%=comment[i].id%>" method="POST">
+            <div class="postedit__button">
+                <button type="submit">Delete</button>     
+            </div>
+        </form> -->
+
+        <div class="postedit__button">
+            <button onclick="deletecomment(this.value)" value="<%=comment[i].id%>">Delete</button>
+        </div>
+    </div>
+        <%}%>
+    <%i=i+1%>
+    <%}%>
+    </div>
+    <div class="view__content">
+        <p style="color:rebeccapurple"><%=count.length%> Likes </p>
+          <p><b>Author of the blog : <%=author.firstname%> <%=author.lastname%></b></p>
+          <p><b>Published on <%=qs.Published%></b></p>
+          <p><b> Content type : <%=qs.category%></b></p>
+           <p><b>Title  :  <%=qs.Title%></b></p><br>
+           <p><b><u>summary</u> </b>  </p><p><%=qs.Sumary%></p>
+          <br> <p><b><u>Content</u></b> </p><p> <%=qs.content%></p>
+      
+          <form class="form" id="commenton">
+            <div class="form__input">
+                <div class="post__label">
+                <label for="content"><u>Comment Section</u></label>
+            </div>
+        </div>
+        <% if(message) {%>
+            <div class="reg__alert"> <%= message%> </div>
+              <%}%>
+
+              <input type="hidden" id="postid" value="<%=qs.id%>"/>
+            <div class="form__input">
+                <div class="post__label">
+            <label for="title">Your name displayed in comment : </label>
+               <input type="text" id="name" name="name" placeholder="A nickname "
+               required/> 
+               </div></div>
+
+               <div class="form__input">
+                <div class="post__label">
+            <label for="title">Comment : </label>
+            </div></div>
+
+
+            <div class="form__input">
+                <div class="post__labelcontent">
+                       <textarea type="text" id="content" class="comment_box" name="content" placeholder="Comment on the blog post"  required> </textarea>
+                    </div>
+                </div>
+                     
+            
+                    
+            
+                <div class="edit__button">
+                    <button type="submit">Comment</button>     
+                </div>
+                        
+             
+           </form>
+           <script>
+               async function deletecomment(val){
+                   const publish=val;
+                   const post="<%=qs.id%>";
+                   const data={publish,post};
+                   const option={
+                           method:'POST',
+                            headers:{
+                              'Content-Type':'application/json'
+                            },
+                             body:JSON.stringify(data),
+                        };
+                            const responce=await fetch('/auth/deletecomment',option);
+                            const data1=await responce.json();
+                            if(data1.success=="Comment Deleted"){
+                                window.location='/postview?post=<%=qs.id%>';
+                            }
+                            else{
+                                alert("An error occured in the deleting process")
+                            }
+
+               }
+                 const commenton=document.getElementById('commenton');
+                    commenton.addEventListener('submit',async e=>{
+                       e.preventDefault(); 
+                       const id=document.getElementById('postid').value;
+                       const name=document.getElementById('name').value;
+                        const content=document.getElementById('content').value;
+                        const data={id, name, content}
+                        const option={
+                           method:'POST',
+                            headers:{
+                              'Content-Type':'application/json'
+                            },
+                             body:JSON.stringify(data),
+                        };
+                            const responce=await fetch('/auth/comment',option);
+                            const data1=await responce.json();
+                            if(data1.success=="ok"){
+                                window.location='/postview?post='+id;
+                            }
+                            else
+                            {
+                                alert(data1.success);
+                            }
+                    })
+           </script>
+        </div>
+</div>
+
+   <script>
+    const navSlide=()=>{
+        const burger=document.querySelector('.burger');
+        const nav= document.querySelector('.nav-links');
+        const navLinks=document.querySelectorAll('.nav-links li')
+        burger.addEventListener('click',()=>{
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link,index)=>{
+            if(link.style.animation){
+                link.style.animation='';
+            }
+            else{
+                link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+            }
+        })
+        })
+        
+    }
+    navSlide();
+</script>
+</body>
+</html>

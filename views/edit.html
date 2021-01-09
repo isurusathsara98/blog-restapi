@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Blog register</title>
+</head>
+<body>
+    <nav> 
+        <h1>Blog</h1>
+        <u1 class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </u1>
+     <div class="burger">
+         <div class="line1"></div>
+         <div class="line2"></div>
+         <div class="line3"></div>
+         
+     </div>
+    </nav>
+
+   <div class="register__form">
+       <h1>Edit details</h1>
+       <% if(message) {%>
+        <div class="reg__alert"> <%= message%> </div>
+        <% console.log(message)%>
+          <%}%>
+          <form class="form" id="editdetails">
+           <div class="form__input">
+            <div class="input__label">
+            <label for="firstname">First name</label>
+               <input type="text" id="fname" name="fname" placeholder="<%=user.firstname%>"
+               /> 
+               </div>
+               
+               <div class="input__label">
+               <label for="Middle name">Middle name</label>
+               <input type="text" id="mname" name="mname" placeholder="<%=user.middlename%>"
+               /> 
+               </div>
+
+               <div class="input__label">
+               <label for="Last name">Last name</label>
+               <input type="text" id="lname" name="lname" placeholder="<%=user.lastname%>"
+               /> 
+               </div>
+
+               <div class="input__label">
+               <label for="Email">Email address</label>
+               <input type="email" id="email" name="email" placeholder="<%=user.email%>"
+              /> 
+               </div>
+
+
+               <div class="input__label">
+               <label for="mobile">Mobile</label>
+               <input type="integer" id="mobile" name="mobile" placeholder="<%=user.mobile%>"/> 
+            </div>
+               
+            <div class="input__label">
+                <label for="intro">Intro</label>
+                <input type="text" id="intro" name="intro" placeholder="<%=user.Intro%>"/> 
+             </div>
+
+               <div class="input__label">
+                <label for="Current Password">Current Password</label>
+                <input type="password" id="currentpassword" name="currentpassword" placeholder="Please enter current password"
+                required/> 
+             </div>
+            </div>
+            
+            <div class="edit__button">
+                <button type="submit">Edit</button>     
+            </div>
+                    
+         
+       </form>
+    <script>
+        const editdetails=document.getElementById('editdetails');
+        editdetails.addEventListener('submit',async e=>{
+                e.preventDefault();
+                const fname=document.getElementById('fname').value;
+                const mname=document.getElementById('mname').value;
+                const lname=document.getElementById('lname').value;
+                const email=document.getElementById('email').value;
+                const mobile=document.getElementById('mobile').value;
+                const intro=document.getElementById('intro').value;
+                const currentpassword=document.getElementById('currentpassword').value;
+                const data={fname, mname, lname, email, mobile, intro, currentpassword};
+                console.log(data);
+                const option={
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(data),
+                };
+                const responce=await fetch('/auth/edit',option);
+                const data1=await responce.json();
+                if(data1.success=="Edited"){
+                    alert("Successfully editted");
+                    window.location.pathname = '/edit'
+                }
+                else{
+                    alert("Something went wrong.Please try again");
+                    window.location.pathname = '/edit'
+                }
+        })
+    </script>
+      
+   </div>
+
+   <script>
+    const navSlide=()=>{
+        const burger=document.querySelector('.burger');
+        const nav= document.querySelector('.nav-links');
+        const navLinks=document.querySelectorAll('.nav-links li')
+        burger.addEventListener('click',()=>{
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link,index)=>{
+            if(link.style.animation){
+                link.style.animation='';
+            }
+            else{
+                link.style.animation=`navLinkFade 0.5s ease forwards ${index/7+.5}s`;
+            }
+        })
+        })
+        
+    }
+    navSlide();
+</script>
+</body>
+</html>
